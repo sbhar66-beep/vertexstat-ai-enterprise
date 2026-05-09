@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>VertexStat AI Interactive Demo</title>
+  <style>
+    body { font-family: Arial; margin:0; background:#f6f8fb; color:#111; }
+    header { background:#071b3a; color:white; padding:30px; text-align:center; }
+    .tabs { display:flex; justify-content:center; gap:10px; padding:20px; flex-wrap:wrap; }
+    button { padding:12px 18px; border:0; border-radius:8px; cursor:pointer; font-weight:bold; }
+    button.active { background:#0b5fff; color:white; }
+    .panel { max-width:950px; margin:20px auto; background:white; padding:30px; border-radius:16px; box-shadow:0 6px 18px #0001; }
+    textarea { width:100%; height:120px; padding:12px; font-size:16px; border-radius:10px; border:1px solid #ccc; }
+    .run { background:#0b5fff; color:white; margin-top:15px; }
+    .output { background:#eef4ff; padding:20px; margin-top:20px; border-radius:12px; white-space:pre-line; line-height:1.5; }
+    .hint { color:#555; font-size:14px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>VertexStat AI Interactive Live Demo</h1>
+  <p>Clinical Operations AI | PMO Copilot | IT Operations AI</p>
+</header>
+
+<div class="tabs">
+  <button class="tab active" onclick="showDemo('clinical', this)">Clinical Operations AI</button>
+  <button class="tab" onclick="showDemo('pmo', this)">PMO Copilot</button>
+  <button class="tab" onclick="showDemo('itops', this)">IT Operations AI</button>
+</div>
+
+<div class="panel">
+  <h2 id="title">Clinical Operations AI</h2>
+  <p id="desc">Ask about patient backlog, imaging delays, staffing, access, throughput, or operational risk.</p>
+
+  <p class="hint">Try editing the text below, then click Run AI Demo.</p>
+
+  <textarea id="input">We have delayed imaging orders, staffing shortage, and patient backlog. What are the top risks and actions?</textarea>
+
+  <br>
+  <button class="run" onclick="runDemo()">Run AI Demo</button>
+
+  <div class="output" id="output">AI response will appear here.</div>
+</div>
+
+<script>
+let currentDemo = "clinical";
+
+const demoInfo = {
+  clinical: {
+    title: "Clinical Operations AI",
+    desc: "Ask about patient backlog, imaging delays, staffing, access, throughput, or operational risk.",
+    sample: "We have delayed imaging orders, staffing shortage, and patient backlog. What are the top risks and actions?"
+  },
+  pmo: {
+    title: "PMO Copilot",
+    desc: "Ask about project risks, milestones, dependencies, budget, status, RAID logs, or executive reporting.",
+    sample: "Our AI implementation project is delayed due to vendor dependency and budget risk. Create an executive status summary."
+  },
+  itops: {
+    title: "IT Operations AI",
+    desc: "Ask about incidents, outages, alerts, latency, failed APIs, root cause, or remediation steps.",
+    sample: "We see API failures, latency spike, and multiple alerts from production. What is the likely root cause and action plan?"
+  }
+};
+
+function showDemo(type, btn) {
+  currentDemo = type;
+
+  document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+
+  document.getElementById("title").innerText = demoInfo[type].title;
+  document.getElementById("desc").innerText = demoInfo[type].desc;
+  document.getElementById("input").value = demoInfo[type].sample;
+  document.getElementById("output").innerText = "AI response will appear here.";
+}
+
+function runDemo() {
+  const text = document.getElementById("input").value.toLowerCase();
+  let response = "";
+
+  if (currentDemo === "clinical") {
+    response = "Clinical Operations AI Analysis:\\n\\n";
+
+    if (text.includes("backlog")) {
+      response += "• Backlog risk detected: patient wait time and SLA performance may be impacted.\\n";
+    }
+    if (text.includes("staff") || text.includes("shortage")) {
+      response += "• Staffing risk detected: capacity may not match demand during peak hours.\\n";
+    }
+    if (text.includes("imaging") || text.includes("orders")) {
+      response += "• Imaging workflow risk detected: delayed orders may slow diagnosis and care coordination.\\n";
+    }
+
+    response += "\\nRecommended Actions:\\n";
+    response += "1. Prioritize high-risk patients first.\\n";
+    response += "2. Create daily backlog visibility dashboard.\\n";
+    response += "3. Rebalance staffing by demand pattern.\\n";
+    response += "4. Escalate bottlenecks to operations leadership.\\n\\n";
+    response += "Executive Summary: AI improves visibility, reduces manual triage, and helps clinical leaders act faster.";
+  }
+
+  if (currentDemo === "pmo") {
+    response = "PMO Copilot Analysis:\\n\\n";
+
+    if (text.includes("delayed") || text.includes("delay")) {
+      response += "• Schedule risk detected: project timeline is trending behind plan.\\n";
+    }
+    if (text.includes("vendor") || text.includes("dependency")) {
+      response += "• Dependency risk detected: vendor or cross-team dependency may block delivery.\\n";
+    }
+    if (text.includes("budget") || text.includes("cost")) {
+      response += "• Budget risk detected: delivery extension may increase cost.\\n";
+    }
+
+    response += "\\nRecommended Actions:\\n";
+    response += "1. Update RAID log and assign risk owners.\\n";
+    response += "2. Rebaseline milestones with sponsor approval.\\n";
+    response += "3. Escalate vendor dependency.\\n";
+    response += "4. Publish weekly executive status report.\\n\\n";
+    response += "Executive Summary: The program is at risk but recoverable with focused governance and dependency management.";
+  }
+
+  if (currentDemo === "itops") {
+    response = "IT Operations AI Analysis:\\n\\n";
+
+    if (text.includes("api") || text.includes("failure")) {
+      response += "• API reliability issue detected: failed calls may impact customer-facing services.\\n";
+    }
+    if (text.includes("latency") || text.includes("slow")) {
+      response += "• Performance degradation detected: latency spike may indicate capacity or downstream dependency issue.\\n";
+    }
+    if (text.includes("alert") || text.includes("outage")) {
+      response += "• Alert storm risk detected: multiple alerts may indicate incident correlation issue.\\n";
+    }
+
+    response += "\\nRecommended Actions:\\n";
+    response += "1. Check API gateway and service logs.\\n";
+    response += "2. Correlate alerts by service, region, and time window.\\n";
+    response += "3. Scale affected service if CPU or memory saturation is high.\\n";
+    response += "4. Generate RCA and incident summary.\\n\\n";
+    response += "Executive Summary: AI can reduce alert noise, improve root-cause analysis, and accelerate incident response.";
+  }
+
+  document.getElementById("output").innerText = response;
+}
+</script>
+
+</body>
+</html>
