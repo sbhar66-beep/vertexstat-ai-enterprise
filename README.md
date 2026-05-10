@@ -1,6 +1,6 @@
-# VertexStat AI Enterprise Website
+# VertexStat AI Enterprise
 
-Complete Next.js + Tailwind replacement website.
+Ready-to-run Next.js site using the VertexStat AI HTML landing page.
 
 ## Run locally
 
@@ -13,14 +13,4 @@ Open http://localhost:3000
 
 ## Deploy
 
-Push to GitHub. Import the repo in Vercel. Vercel auto-detects Next.js.
-
-## Included
-
-- 4 compact AI demo cards with mini visual charts
-- Banking, PMO, Healthcare, and IT Operations use cases
-- Architecture section
-- Case studies
-- AI governance section
-- Contact CTA
-- Downloadable executive brief
+Push to GitHub and connect the repo to Vercel.
