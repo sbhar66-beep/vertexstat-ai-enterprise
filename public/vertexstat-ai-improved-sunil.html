@@ -1,1009 +1,636 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="Agentic AI consulting for healthcare, banking, PMO reporting, and IT operations. Governed, secure, practical AI systems that deliver measurable business value."/>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>VertexStat AI | Enterprise AI Transformation</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,400;0,500;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet" />
 <style>
-/* ─── Reset & Tokens ─────────────────────────────────────── */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --ink:#0f1117;--ink2:#2d3142;--ink3:#6b7280;--ink4:#9ca3af;
-  --surface:#f7f7f4;--card:#ffffff;--border:#e5e5e0;--border2:#d1d1cb;
-  --accent:#0a5c44;--accent2:#1a9e6e;--accent-bg:#edf7f3;--accent-light:#d1f0e4;
-  --dark:#0f1117;--dark2:#161b28;--dark3:#1c2333;--dark-border:#252d3f;
-  --warn:#9b4a00;--warn-bg:#fff3e8;
-  --blue:#1a4fad;--blue-bg:#eef3fd;
-  --mono:'DM Mono',monospace;
-  --sans:'Syne',sans-serif;
-  --radius:12px;--radius-lg:18px;
-  --shadow:0 2px 16px rgba(0,0,0,.07);
-  --shadow-lg:0 8px 40px rgba(0,0,0,.12);
-}
-html{scroll-behavior:smooth}
-body{font-family:var(--sans);background:var(--surface);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --navy:#070d1a;
+    --navy2:#0d1829;
+    --navy3:#152235;
+    --electric:#00e5ff;
+    --electric2:#00b8cc;
+    --green:#00ff9d;
+    --green2:#00cc7a;
+    --amber:#ffb930;
+    --text:#e8edf5;
+    --muted:#7a90ab;
+    --border:rgba(0,229,255,0.12);
+    --border2:rgba(0,229,255,0.25);
+    --card:rgba(13,24,41,0.85);
+    --font-head:'Syne',sans-serif;
+    --font-body:'Instrument Sans',sans-serif;
+    --font-mono:'IBM Plex Mono',monospace;
+  }
+  html{scroll-behavior:smooth}
+  body{background:var(--navy);color:var(--text);font-family:var(--font-body);font-size:15px;line-height:1.6;overflow-x:hidden}
 
-/* ─── Typography ─────────────────────────────────────────── */
-h1{font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;letter-spacing:-.04em;line-height:1.1}
-h2{font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:700;letter-spacing:-.03em;line-height:1.2}
-h3{font-size:1.15rem;font-weight:700;letter-spacing:-.02em}
-p{color:var(--ink3);line-height:1.7}
-.mono{font-family:var(--mono)}
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 2.5rem;background:rgba(7,13,26,0.92);backdrop-filter:blur(12px);border-bottom:0.5px solid var(--border)}
+  .nav-logo{font-family:var(--font-head);font-size:1.1rem;font-weight:800;letter-spacing:-0.02em;color:#fff}
+  .nav-logo span{color:var(--electric)}
+  .nav-links{display:flex;gap:2rem;list-style:none}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:0.85rem;letter-spacing:0.04em;text-transform:uppercase;transition:color 0.2s}
+  .nav-links a:hover{color:var(--electric)}
+  .nav-cta{background:var(--electric);color:var(--navy);font-family:var(--font-head);font-size:0.8rem;font-weight:700;padding:0.5rem 1.2rem;border:none;cursor:pointer;text-decoration:none;letter-spacing:0.05em;text-transform:uppercase;transition:background 0.2s}
+  .nav-cta:hover{background:var(--green)}
 
-/* ─── Layout ─────────────────────────────────────────────── */
-.container{max-width:1100px;margin:0 auto;padding:0 24px}
-section{padding:80px 0}
+  /* HERO */
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:7rem 2.5rem 4rem;position:relative;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;max-width:1200px;margin:0 auto;width:100%}
+  .hero-badge{display:inline-flex;align-items:center;gap:0.5rem;border:0.5px solid var(--border2);padding:0.35rem 0.9rem;font-family:var(--font-mono);font-size:0.75rem;color:var(--electric);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:1.5rem}
+  .hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+  h1{font-family:var(--font-head);font-size:clamp(2.5rem,4vw,3.8rem);font-weight:800;line-height:1.05;letter-spacing:-0.03em;color:#fff;margin-bottom:1.5rem}
+  h1 em{font-style:normal;color:var(--electric)}
+  .hero-sub{color:var(--muted);font-size:1rem;line-height:1.7;max-width:480px;margin-bottom:2rem}
+  .hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
+  .btn-primary{background:var(--electric);color:var(--navy);font-family:var(--font-head);font-weight:700;font-size:0.85rem;padding:0.75rem 1.8rem;border:none;cursor:pointer;text-decoration:none;letter-spacing:0.04em;text-transform:uppercase;display:inline-block;transition:background 0.2s,transform 0.15s}
+  .btn-primary:hover{background:var(--green);transform:translateY(-1px)}
+  .btn-outline{background:transparent;color:var(--electric);font-family:var(--font-head);font-weight:600;font-size:0.85rem;padding:0.75rem 1.8rem;border:1px solid var(--border2);cursor:pointer;text-decoration:none;letter-spacing:0.04em;text-transform:uppercase;display:inline-block;transition:border-color 0.2s,color 0.2s}
+  .btn-outline:hover{border-color:var(--electric);color:#fff}
 
-/* ─── Navbar ─────────────────────────────────────────────── */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(247,247,244,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;height:60px;max-width:1100px;margin:0 auto;padding:0 24px}
-.nav-logo{font-family:var(--sans);font-size:18px;font-weight:800;letter-spacing:-.04em;color:var(--ink);text-decoration:none}
-.nav-logo span{color:var(--accent2)}
-.nav-links{display:flex;align-items:center;gap:28px}
-.nav-links a{font-size:13px;font-family:var(--mono);color:var(--ink3);text-decoration:none;transition:color .15s}
-.nav-links a:hover{color:var(--ink)}
-.nav-cta{background:var(--ink);color:#fff!important;padding:7px 16px;border-radius:8px;font-size:12px!important;transition:background .15s!important}
-.nav-cta:hover{background:var(--accent)!important}
+  /* HERO STATS PANEL */
+  .hero-panel{background:var(--card);border:0.5px solid var(--border2);padding:2rem;position:relative}
+  .hero-panel::before{content:'LIVE METRICS';position:absolute;top:-1px;left:1.5rem;background:var(--electric);color:var(--navy);font-family:var(--font-mono);font-size:0.65rem;font-weight:500;padding:0.2rem 0.6rem;letter-spacing:0.1em}
+  .metrics-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1rem}
+  .metric{border-left:2px solid var(--electric);padding-left:1rem}
+  .metric-val{font-family:var(--font-head);font-size:2rem;font-weight:800;color:#fff;line-height:1}
+  .metric-val span{font-size:1rem;color:var(--green)}
+  .metric-label{font-family:var(--font-mono);font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-top:0.25rem}
+  .mini-chart{margin-top:1.5rem;border-top:0.5px solid var(--border);padding-top:1.5rem}
+  .mini-chart-label{font-family:var(--font-mono);font-size:0.7rem;color:var(--muted);margin-bottom:0.75rem;text-transform:uppercase;letter-spacing:0.06em}
+  .bars{display:flex;align-items:flex-end;gap:4px;height:60px}
+  .bar{flex:1;background:var(--navy3);position:relative;overflow:hidden}
+  .bar-fill{position:absolute;bottom:0;left:0;right:0;background:var(--electric);opacity:0.7}
+  .bar:nth-child(even) .bar-fill{background:var(--green);opacity:0.6}
 
-/* ─── Hero ───────────────────────────────────────────────── */
-#hero{padding:120px 0 80px;position:relative;overflow:hidden}
-.hero-grid{display:grid;grid-template-columns:1fr 480px;gap:48px;align-items:center}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-family:var(--mono);background:var(--accent-bg);color:var(--accent);padding:5px 12px;border-radius:20px;margin-bottom:20px;border:1px solid var(--accent-light)}
-.hero-eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--accent2);animation:pulse 1.8s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.hero h1{margin-bottom:20px}
-.hero h1 span{color:var(--accent2)}
-.hero-sub{font-size:16px;max-width:460px;margin-bottom:32px}
-.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
-.btn-primary{background:var(--ink);color:#fff;padding:12px 24px;border-radius:10px;font-family:var(--mono);font-size:13px;text-decoration:none;transition:all .15s;border:none;cursor:pointer}
-.btn-primary:hover{background:var(--accent)}
-.btn-outline{background:transparent;color:var(--ink);padding:12px 24px;border-radius:10px;font-family:var(--mono);font-size:13px;text-decoration:none;border:1px solid var(--border2);transition:all .15s}
-.btn-outline:hover{border-color:var(--ink)}
-.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:40px}
-.hero-stat{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px}
-.hero-stat-val{font-size:24px;font-weight:700;color:var(--ink);letter-spacing:-.03em}
-.hero-stat-label{font-size:11px;font-family:var(--mono);color:var(--ink3);margin-top:2px}
-.hero-visual{background:var(--dark);border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--dark-border)}
-.hero-visual-top{background:var(--dark2);padding:10px 16px;display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--dark-border)}
-.dot-red{width:9px;height:9px;border-radius:50%;background:#ff5f57}
-.dot-amber{width:9px;height:9px;border-radius:50%;background:#ffbd2e}
-.dot-green{width:9px;height:9px;border-radius:50%;background:#28c840}
-.hero-visual-title{font-size:11px;font-family:var(--mono);color:#6b7280;margin-left:8px}
-.hero-terminal{padding:20px;font-family:var(--mono);font-size:12px;line-height:2}
-.t-dim{color:#4b5563}
-.t-green{color:#1a9e6e}
-.t-white{color:#e5e7eb}
-.t-amber{color:#f59e0b}
-.t-blue{color:#60a5fa}
-.t-cursor{display:inline-block;width:8px;height:14px;background:#1a9e6e;animation:blink-cursor .8s step-end infinite;vertical-align:middle}
-@keyframes blink-cursor{0%,100%{opacity:1}50%{opacity:0}}
+  /* BG DECORATION */
+  .bg-lines{position:absolute;inset:0;pointer-events:none;opacity:0.04}
+  .bg-lines svg{width:100%;height:100%}
+  .hero-glow{position:absolute;top:20%;right:-10%;width:50vw;height:50vw;background:radial-gradient(circle,rgba(0,229,255,0.06) 0%,transparent 70%);pointer-events:none}
 
-/* ─── Section headers ────────────────────────────────────── */
-.section-label{font-size:11px;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--accent2);margin-bottom:10px}
-.section-heading{margin-bottom:12px}
-.section-sub{font-size:15px;max-width:580px;margin-bottom:48px}
+  /* SECTION LAYOUT */
+  section{padding:5rem 2.5rem;max-width:1200px;margin:0 auto}
+  .section-full{padding:5rem 0;background:var(--navy2);border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border)}
+  .section-full > .inner{max-width:1200px;margin:0 auto;padding:0 2.5rem}
+  .eyebrow{font-family:var(--font-mono);font-size:0.72rem;color:var(--electric);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.75rem}
+  h2{font-family:var(--font-head);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:800;letter-spacing:-0.02em;color:#fff;margin-bottom:1rem;line-height:1.1}
+  h2 em{font-style:normal;color:var(--electric)}
+  .section-desc{color:var(--muted);max-width:540px;line-height:1.7;margin-bottom:3rem}
 
-/* ─── Use cases ──────────────────────────────────────────── */
-#use-cases{background:var(--card)}
-.use-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-.use-card{border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;background:var(--surface);transition:all .2s;cursor:default}
-.use-card:hover{border-color:var(--accent-light);box-shadow:var(--shadow)}
-.use-tag{display:inline-block;font-size:10px;font-family:var(--mono);padding:3px 9px;border-radius:4px;margin-bottom:14px;font-weight:500}
-.tag-health{background:#fce7f3;color:#9d174d}
-.tag-bank{background:var(--blue-bg);color:var(--blue)}
-.tag-ops{background:#f0fdf4;color:#15803d}
-.tag-pmo{background:var(--warn-bg);color:var(--warn)}
-.use-card h3{margin-bottom:8px;font-size:1rem}
-.use-card p{font-size:13px}
-.use-bullets{list-style:none;margin-top:12px;display:flex;flex-direction:column;gap:5px}
-.use-bullets li{font-size:12px;font-family:var(--mono);color:var(--ink3);padding-left:14px;position:relative}
-.use-bullets li::before{content:'→';position:absolute;left:0;color:var(--accent2)}
+  /* SERVICE CARDS */
+  .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:0.5px solid var(--border)}
+  .service-card{background:var(--navy);padding:2rem;position:relative;overflow:hidden;transition:background 0.25s}
+  .service-card:hover{background:var(--navy3)}
+  .service-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--electric);transform:scaleX(0);transform-origin:left;transition:transform 0.3s}
+  .service-card:hover::after{transform:scaleX(1)}
+  .service-icon{font-size:1.5rem;margin-bottom:1rem;display:block;color:var(--electric)}
+  .service-card h3{font-family:var(--font-head);font-size:1rem;font-weight:700;color:#fff;margin-bottom:0.5rem}
+  .service-card p{color:var(--muted);font-size:0.88rem;line-height:1.6}
 
-/* ─── INTERACTIVE DEMO ───────────────────────────────────── */
-#demo{background:var(--dark);padding:80px 0}
-#demo .section-label{color:#1a9e6e}
-#demo h2{color:#fff}
-#demo .section-sub{color:#9ca3af}
-.demo-shell{display:grid;grid-template-columns:240px 1fr;border:1px solid var(--dark-border);border-radius:var(--radius-lg);overflow:hidden;background:var(--dark2)}
-.demo-sidebar{background:var(--dark);padding:20px 16px;display:flex;flex-direction:column;gap:4px;border-right:1px solid var(--dark-border)}
-.demo-sidebar-logo{font-size:15px;font-weight:700;color:#fff;margin-bottom:16px;letter-spacing:-.3px}
-.demo-sidebar-logo span{color:#1a9e6e}
-.prompt-btn{background:transparent;border:none;text-align:left;padding:9px 12px;border-radius:8px;cursor:pointer;font-family:var(--mono);font-size:11px;color:#9ca3af;line-height:1.5;transition:all .15s;width:100%}
-.prompt-btn:hover{background:var(--dark3);color:#e5e7eb}
-.prompt-btn.active{background:#0d2218;color:#6ee7b7;border-left:2px solid #1a9e6e;padding-left:10px}
-.sidebar-divider{height:1px;background:var(--dark-border);margin:12px 0}
-.sidebar-label{font-size:10px;color:#4b5563;font-family:var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:0 12px;margin-bottom:4px}
-.demo-main{display:flex;flex-direction:column;background:var(--dark2)}
-.demo-topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid var(--dark-border)}
-.demo-topbar-title{font-size:13px;font-weight:600;color:#e5e7eb}
-.live-badge{font-family:var(--mono);font-size:10px;background:#0d2218;color:#1a9e6e;padding:3px 10px;border-radius:20px;display:flex;align-items:center;gap:5px;border:1px solid #1a4a30}
-.live-dot{width:6px;height:6px;border-radius:50%;background:#1a9e6e;animation:pulse 1.8s infinite}
-.chat-area{flex:1;padding:20px;display:flex;flex-direction:column;gap:12px;overflow-y:auto;min-height:320px;max-height:380px}
-.msg{display:flex;flex-direction:column;gap:4px}
-.msg-user{align-items:flex-end}
-.msg-ai{align-items:flex-start}
-.bubble{padding:10px 14px;border-radius:12px;font-size:13px;line-height:1.6;max-width:88%}
-.bubble-user{background:#0f1117;color:#e5e7eb;border-radius:12px 12px 2px 12px;font-family:var(--mono)}
-.bubble-ai{background:var(--dark3);border:1px solid var(--dark-border);color:#d1d5db;border-radius:2px 12px 12px 12px}
-.ai-label{font-size:10px;font-family:var(--mono);color:#4b5563;margin-left:4px}
-.user-label{font-size:10px;font-family:var(--mono);color:#4b5563;margin-right:4px;text-align:right}
-.stats-row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
-.stat-chip{background:var(--dark2);border:1px solid var(--dark-border);border-radius:8px;padding:8px 12px;font-family:var(--mono);font-size:11px}
-.stat-chip-label{color:#6b7280;margin-bottom:2px}
-.stat-chip-val{font-size:18px;font-weight:500;color:#e5e7eb}
-.stat-chip-val.warn{color:#f59e0b}
-.stat-chip-val.good{color:#1a9e6e}
-.risk-bar-wrap{margin-top:8px;background:var(--dark);border:1px solid var(--dark-border);border-radius:8px;padding:12px 14px}
-.risk-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:11px;font-family:var(--mono)}
-.risk-row:last-child{margin-bottom:0}
-.risk-name{width:130px;color:#9ca3af;flex-shrink:0}
-.risk-track{flex:1;height:5px;background:#252d3f;border-radius:3px;overflow:hidden}
-.risk-fill{height:100%;border-radius:3px;transition:width 1.2s ease}
-.risk-score{width:28px;text-align:right;color:#e5e7eb;font-weight:500}
-.alert-box-dark{background:#1a1200;border:1px solid #7c4500;border-radius:8px;padding:10px 12px;font-size:12px;color:#f59e0b;font-family:var(--mono);line-height:1.5;margin-top:8px}
-.table-mini{width:100%;font-family:var(--mono);font-size:11px;border-collapse:collapse;margin-top:8px}
-.table-mini th{text-align:left;color:#6b7280;padding:5px 8px;border-bottom:1px solid var(--dark-border);font-weight:500}
-.table-mini td{padding:6px 8px;color:#9ca3af;border-bottom:1px solid #1c2333}
-.table-mini tr:last-child td{border-bottom:none}
-.badge{display:inline-block;font-size:10px;padding:2px 7px;border-radius:4px;font-family:var(--mono)}
-.badge-red{background:#3b0f0f;color:#f87171}
-.badge-amber{background:#2a1600;color:#fb923c}
-.badge-green{background:#0d2218;color:#6ee7b7}
-.typing{display:flex;gap:4px;padding:4px 2px;align-items:center}
-.typing-dot{width:5px;height:5px;border-radius:50%;background:#4b5563;animation:typing-blink 1.2s infinite}
-.typing-dot:nth-child(2){animation-delay:.2s}
-.typing-dot:nth-child(3){animation-delay:.4s}
-@keyframes typing-blink{0%,80%,100%{opacity:.3}40%{opacity:1}}
-.chat-input-row{display:flex;gap:8px;padding:14px 20px;border-top:1px solid var(--dark-border)}
-.chat-input{flex:1;font-family:var(--mono);font-size:12px;padding:9px 14px;border:1px solid var(--dark-border);border-radius:8px;background:var(--dark);color:#e5e7eb;outline:none;transition:border .15s}
-.chat-input:focus{border-color:#1a9e6e}
-.chat-send{background:#1a9e6e;color:#fff;border:none;border-radius:8px;padding:9px 18px;font-family:var(--mono);font-size:12px;cursor:pointer;transition:all .15s}
-.chat-send:hover{background:#0f7a55}
-.demo-disclaimer{font-size:10px;font-family:var(--mono);color:#374151;text-align:center;padding:8px 20px 12px;border-top:1px solid var(--dark-border)}
+  /* DEMO TABS */
+  .demo-tabs{display:flex;gap:0;margin-bottom:2rem;border:0.5px solid var(--border2)}
+  .demo-tab{flex:1;padding:0.75rem 1rem;background:transparent;border:none;cursor:pointer;font-family:var(--font-mono);font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;text-align:center;transition:background 0.2s,color 0.2s;border-right:0.5px solid var(--border2)}
+  .demo-tab:last-child{border-right:none}
+  .demo-tab.active{background:var(--electric);color:var(--navy);font-weight:700}
+  .demo-panel{display:none}
+  .demo-panel.active{display:grid;grid-template-columns:1fr 1fr;gap:2rem;animation:fadeIn 0.3s}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .demo-prompt-box{background:var(--navy3);border:0.5px solid var(--border2);padding:1.5rem}
+  .demo-prompt-label{font-family:var(--font-mono);font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.75rem}
+  .demo-prompt{font-family:var(--font-mono);font-size:0.85rem;color:var(--electric);line-height:1.5;padding:1rem;background:rgba(0,229,255,0.04);border-left:2px solid var(--electric)}
+  .demo-output{background:var(--navy);border:0.5px solid var(--border);padding:1.5rem;margin-top:1rem}
+  .demo-output p{color:var(--text);font-size:0.88rem;line-height:1.6}
+  .demo-kpis{display:flex;gap:1rem;margin-top:1rem}
+  .demo-kpi{flex:1;text-align:center;background:var(--navy2);border:0.5px solid var(--border);padding:0.75rem}
+  .demo-kpi-val{font-family:var(--font-head);font-size:1.5rem;font-weight:800;color:var(--electric)}
+  .demo-kpi-label{font-family:var(--font-mono);font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em}
+  .demo-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-top:1rem}
+  .demo-tag{font-family:var(--font-mono);font-size:0.68rem;padding:0.25rem 0.6rem;border:0.5px solid var(--border2);color:var(--electric);letter-spacing:0.06em}
+  .demo-visual-label{font-family:var(--font-mono);font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1rem}
+  .gauge-row{display:flex;flex-direction:column;gap:0.6rem}
+  .gauge-item{display:grid;grid-template-columns:130px 1fr 36px;align-items:center;gap:0.75rem}
+  .gauge-name{font-family:var(--font-mono);font-size:0.72rem;color:var(--muted)}
+  .gauge-track{height:6px;background:var(--navy3);position:relative}
+  .gauge-fill{height:100%;background:var(--electric);transition:width 1s cubic-bezier(0.4,0,0.2,1)}
+  .gauge-score{font-family:var(--font-mono);font-size:0.75rem;color:var(--electric);font-weight:500}
 
-/* ─── ARCHITECTURE ───────────────────────────────────────── */
-#architecture{background:var(--surface)}
-.arch-svg-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:32px 24px;overflow-x:auto}
+  /* ARCHITECTURE */
+  .arch-flow{display:flex;flex-direction:column;align-items:center;gap:0;max-width:680px;margin:0 auto}
+  .arch-node{width:100%;background:var(--navy3);border:0.5px solid var(--border2);padding:1.25rem 1.5rem;text-align:center;position:relative}
+  .arch-node h4{font-family:var(--font-head);font-size:0.95rem;font-weight:700;color:#fff;margin-bottom:0.25rem}
+  .arch-node p{font-size:0.8rem;color:var(--muted)}
+  .arch-node.highlight{border-color:var(--electric);background:rgba(0,229,255,0.05)}
+  .arch-node.success{border-color:var(--green);background:rgba(0,255,157,0.05)}
+  .arch-node.user{background:rgba(0,229,255,0.06);border-color:var(--electric)}
+  .arch-arrow{display:flex;align-items:center;justify-content:center;height:28px;color:var(--electric);font-size:1.2rem;opacity:0.6}
+  .arch-agents{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);width:100%;border:0.5px solid var(--border)}
+  .arch-agent{background:var(--navy2);padding:0.75rem;text-align:center;font-family:var(--font-mono);font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em}
 
-/* ─── Case Studies ───────────────────────────────────────── */
-#case-studies{background:var(--card)}
-.cases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.case-card{border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;background:var(--surface);position:relative;overflow:hidden}
-.case-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-.case-card.green::before{background:var(--accent2)}
-.case-card.blue::before{background:#1a4fad}
-.case-card.amber::before{background:#d97706}
-.case-metric{font-size:2.2rem;font-weight:800;letter-spacing:-.04em;color:var(--ink);margin-bottom:4px}
-.case-title{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:8px}
-.case-desc{font-size:13px}
+  /* CASE STUDIES */
+  .cases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+  .case-card{background:var(--card);border:0.5px solid var(--border);padding:2rem;position:relative;overflow:hidden;transition:border-color 0.2s}
+  .case-card:hover{border-color:var(--electric)}
+  .case-number{font-family:var(--font-head);font-size:3rem;font-weight:800;color:var(--electric);opacity:0.15;position:absolute;top:1rem;right:1rem;line-height:1}
+  .case-stat{font-family:var(--font-head);font-size:2rem;font-weight:800;color:var(--electric);margin-bottom:0.25rem}
+  .case-card h3{font-family:var(--font-head);font-size:1rem;font-weight:700;color:#fff;margin-bottom:0.5rem}
+  .case-card p{font-size:0.85rem;color:var(--muted);line-height:1.6}
 
-/* ─── Governance ─────────────────────────────────────────── */
-#governance{background:var(--dark);padding:80px 0}
-#governance .section-label{color:#1a9e6e}
-#governance h2{color:#fff}
-#governance .section-sub{color:#9ca3af}
-.gov-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.gov-card{background:var(--dark2);border:1px solid var(--dark-border);border-radius:var(--radius);padding:20px}
-.gov-icon{font-size:20px;margin-bottom:12px}
-.gov-title{font-size:13px;font-weight:600;color:#e5e7eb;margin-bottom:6px}
-.gov-desc{font-size:12px;font-family:var(--mono);color:#6b7280;line-height:1.6}
+  /* GOVERNANCE */
+  .gov-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0.75rem}
+  .gov-item{display:flex;align-items:flex-start;gap:0.75rem;padding:1rem;background:var(--navy3);border:0.5px solid var(--border)}
+  .gov-check{color:var(--green);font-size:1rem;margin-top:0.1rem;flex-shrink:0}
+  .gov-item p{font-size:0.88rem;color:var(--text)}
 
-/* ─── TEAM ───────────────────────────────────────────────── */
-#team{background:var(--surface)}
-.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px}
-.team-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;transition:box-shadow .2s}
-.team-card:hover{box-shadow:var(--shadow-lg)}
-.avatar{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;margin-bottom:16px;font-family:var(--mono)}
-.av-green{background:var(--accent-bg);color:var(--accent)}
-.av-blue{background:var(--blue-bg);color:var(--blue)}
-.av-amber{background:var(--warn-bg);color:var(--warn)}
-.member-name{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:2px}
-.member-role{font-size:12px;color:var(--accent2);font-family:var(--mono);margin-bottom:10px}
-.member-bio{font-size:13px;color:var(--ink3);line-height:1.6;margin-bottom:14px}
-.tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
-.tag{font-size:10px;font-family:var(--mono);padding:3px 8px;border-radius:4px;background:var(--surface);color:var(--ink2);border:1px solid var(--border)}
-.li-btn{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-family:var(--mono);color:var(--ink3);text-decoration:none;border:1px solid var(--border);padding:5px 10px;border-radius:6px;transition:all .15s;cursor:pointer;background:transparent}
-.li-btn:hover{border-color:var(--accent);color:var(--accent)}
-.advisors-bar{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px 24px;margin-bottom:16px}
-.adv-title{font-size:11px;font-family:var(--mono);color:var(--ink3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}
-.adv-row{display:flex;gap:24px;flex-wrap:wrap}
-.adv-item{display:flex;align-items:center;gap:10px}
-.adv-avatar{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;font-family:var(--mono)}
-.adv-name{font-size:13px;font-weight:600;color:var(--ink)}
-.adv-desc{font-size:11px;color:var(--ink3);font-family:var(--mono)}
-.hiring-bar{background:var(--ink);border-radius:var(--radius-lg);padding:18px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.hiring-text{font-size:14px;color:#d1d5db}
-.hiring-text strong{color:#fff;display:block;margin-bottom:2px}
-.hiring-cta{background:#1a9e6e;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-family:var(--mono);font-size:12px;cursor:pointer;white-space:nowrap;transition:background .15s}
-.hiring-cta:hover{background:#0f7a55}
+  /* CTA SECTION */
+  .cta-section{background:var(--navy2);border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);text-align:center;padding:5rem 2.5rem}
+  .cta-section h2{margin-bottom:1rem}
+  .cta-section p{color:var(--muted);max-width:500px;margin:0 auto 2.5rem}
+  .cta-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
 
-/* ─── CTA / CONTACT ──────────────────────────────────────── */
-#contact{background:var(--card)}
-.cta-outer{background:var(--dark);border-radius:var(--radius-lg);overflow:hidden;margin-bottom:16px}
-.cta-top{padding:40px 40px 28px;border-bottom:1px solid var(--dark-border)}
-.cta-eyebrow{font-size:11px;font-family:var(--mono);color:#1a9e6e;letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px}
-.cta-heading{font-size:clamp(1.5rem,3vw,2rem);font-weight:700;color:#fff;letter-spacing:-.04em;margin-bottom:10px;line-height:1.2}
-.cta-sub{font-size:14px;color:#9ca3af;max-width:520px;line-height:1.7}
-.cta-options{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--dark-border)}
-.cta-opt{padding:22px 24px;border-right:1px solid var(--dark-border);cursor:pointer;transition:background .15s}
-.cta-opt:last-child{border-right:none}
-.cta-opt:hover{background:var(--dark3)}
-.cta-opt.selected{background:#0d2218;border-bottom:2px solid #1a9e6e}
-.opt-icon{font-size:20px;margin-bottom:10px}
-.opt-title{font-size:13px;font-weight:600;color:#e5e7eb;margin-bottom:4px}
-.opt-desc{font-size:11px;font-family:var(--mono);color:#6b7280;line-height:1.5}
-.form-panel{background:#0d1117;padding:28px 40px 32px}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
-.form-field{display:flex;flex-direction:column;gap:5px}
-.form-field.full{grid-column:1/-1}
-label{font-size:11px;font-family:var(--mono);color:#6b7280;letter-spacing:.04em}
-input[type=text],input[type=email],select,textarea{background:var(--dark3);border:1px solid var(--dark-border);border-radius:8px;color:#e5e7eb;font-family:var(--mono);font-size:12px;padding:10px 13px;outline:none;transition:border .15s;width:100%}
-input[type=text]:focus,input[type=email]:focus,select:focus,textarea:focus{border-color:#1a9e6e}
-select option{background:var(--dark3)}
-textarea{resize:vertical;min-height:80px}
-.submit-row{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:18px}
-.submit-btn{background:#1a9e6e;color:#fff;border:none;border-radius:8px;padding:12px 28px;font-family:var(--mono);font-size:13px;cursor:pointer;transition:all .15s;font-weight:500}
-.submit-btn:hover{background:#0f7a55}
-.submit-btn:active{transform:scale(.98)}
-.submit-note{font-size:11px;font-family:var(--mono);color:#4b5563;line-height:1.6}
-.success-msg{display:none;background:#0d2218;border:1px solid #1a9e6e;border-radius:8px;padding:16px 20px;font-family:var(--mono);font-size:13px;color:#6ee7b7;text-align:center;margin-top:14px}
-.alt-ctas{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.alt-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;display:flex;align-items:flex-start;gap:14px;cursor:pointer;transition:box-shadow .15s}
-.alt-card:hover{box-shadow:var(--shadow)}
-.alt-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
-.alt-icon-g{background:var(--accent-bg)}
-.alt-icon-b{background:var(--blue-bg)}
-.alt-text-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:3px}
-.alt-text-desc{font-size:12px;font-family:var(--mono);color:var(--ink3);line-height:1.5}
+  /* FOOTER */
+  .footer-wrap{border-top:0.5px solid var(--border)}
+  footer{padding:2rem 2.5rem;display:flex;align-items:center;justify-content:space-between;max-width:1200px;margin:0 auto;flex-wrap:wrap;gap:1rem}
+  .footer-brand{font-family:var(--font-head);font-size:0.9rem;font-weight:700;color:#fff}
+  .footer-brand span{color:var(--electric)}
+  footer p{font-family:var(--font-mono);font-size:0.72rem;color:var(--muted)}
 
-/* ─── Footer ─────────────────────────────────────────────── */
-footer{background:var(--dark);padding:40px 0;border-top:1px solid var(--dark-border)}
-.footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
-.footer-logo{font-size:16px;font-weight:800;color:#fff;letter-spacing:-.04em}
-.footer-logo span{color:#1a9e6e}
-.footer-links{display:flex;gap:20px}
-.footer-links a{font-size:12px;font-family:var(--mono);color:#4b5563;text-decoration:none;transition:color .15s}
-.footer-links a:hover{color:#9ca3af}
-.footer-copy{font-size:11px;font-family:var(--mono);color:#374151}
+  /* USE CASES LIST */
+  .usecase-list{list-style:none;margin-top:1rem}
+  .usecase-list li{padding:0.4rem 0;font-size:0.85rem;color:var(--muted);border-bottom:0.5px solid var(--border);display:flex;align-items:center;gap:0.5rem}
+  .usecase-list li::before{content:'→';color:var(--electric);font-family:var(--font-mono);font-size:0.75rem}
 
-/* ─── Animations ─────────────────────────────────────────── */
-.fade-up{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
-.fade-up.visible{opacity:1;transform:none}
+  /* INDUSTRIES STRIP */
+  .industries{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:0.5px solid var(--border);margin-top:3rem}
+  .industry{background:var(--navy);padding:1.5rem;text-align:center}
+  .industry-label{font-family:var(--font-mono);font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem}
+  .industry h4{font-family:var(--font-head);font-size:0.9rem;font-weight:700;color:#fff}
 
-/* ─── Responsive ─────────────────────────────────────────── */
-@media(max-width:860px){
-  .hero-grid{grid-template-columns:1fr;gap:32px}
-  .hero-visual{display:none}
-  .use-grid{grid-template-columns:1fr}
-  .demo-shell{grid-template-columns:1fr;min-height:auto}
-  .demo-sidebar{display:none}
-  .cases-grid{grid-template-columns:1fr}
-  .gov-grid{grid-template-columns:1fr 1fr}
-  .team-grid{grid-template-columns:1fr}
-  .cta-options{grid-template-columns:1fr}
-  .cta-opt{border-right:none;border-bottom:1px solid var(--dark-border)}
-  .form-grid{grid-template-columns:1fr}
-  .alt-ctas{grid-template-columns:1fr}
-  .nav-links{display:none}
-  .cta-top{padding:28px 24px 20px}
-  .form-panel{padding:20px 24px 24px}
-}
-@media(max-width:600px){
-  .hero-stats{grid-template-columns:1fr 1fr}
-  .gov-grid{grid-template-columns:1fr}
-  .submit-row{flex-direction:column;align-items:flex-start}
-}
+  @media(max-width:1024px){
+    .hero-grid{grid-template-columns:1fr;max-width:640px}
+    .demo-panel.active{grid-template-columns:1fr}
+    .cases-grid{grid-template-columns:1fr 1fr}
+    .services-grid{grid-template-columns:1fr 1fr}
+    .industries{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:768px){
+    nav{padding:1rem 1.25rem}
+    .nav-links{display:none}
+    section{padding:3.5rem 1.25rem}
+    .section-full > .inner{padding:0 1.25rem}
+    .cta-section{padding:3.5rem 1.25rem}
+    .hero{padding:6rem 1.25rem 3rem}
+    .cases-grid{grid-template-columns:1fr}
+    .services-grid{grid-template-columns:1fr}
+    .gov-grid{grid-template-columns:1fr}
+    .industries{grid-template-columns:1fr 1fr}
+    .demo-tabs{flex-wrap:wrap}
+    .demo-tab{flex:1 1 40%;border-right:none;border-bottom:0.5px solid var(--border2)}
+    footer{flex-direction:column;gap:0.5rem}
+    .section-full .gov-inner{grid-template-columns:1fr !important}
+  }
 </style>
 </head>
 <body>
 
-<!-- ─── NAV ───────────────────────────────────────────────── -->
+<!-- ===================== NAV ===================== -->
 <nav>
-  <div class="nav-inner">
-    <a href="#hero" class="nav-logo">Vertex<span>Stat</span> AI</a>
-    <div class="nav-links">
-      <a href="#demo">Demo</a>
-      <a href="#architecture">Architecture</a>
-      <a href="#case-studies">Case studies</a>
-      <a href="#team">Team</a>
-      <a href="#contact" class="nav-cta">Get started</a>
-    </div>
-  </div>
+  <div class="nav-logo">Vertex<span>Stat</span> AI</div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#demos">Demos</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="mailto:info@vertexstat.ai" class="nav-cta">Start Pilot</a>
 </nav>
 
-<!-- ─── HERO ───────────────────────────────────────────────── -->
-<section id="hero">
-  <div class="container">
-    <div class="hero-grid">
-      <div>
-        <div class="hero-eyebrow"><span class="hero-eyebrow-dot"></span>Enterprise AI for regulated industries</div>
-        <h1>AI that works inside<br><span>healthcare, banking</span><br>&amp; operations</h1>
-        <p class="hero-sub">We design secure, governed agentic AI systems that improve operations, automate reporting, reduce risk, and create measurable business value — within your compliance framework.</p>
-        <div class="hero-btns">
-  <a href="#contact" class="btn-primary">
-    Schedule AI session →
-  </a>
-  <a href="#demo" class="btn-outline">
-    See live demo
-  </a>
-  <a href="/live-ai-demo.html" target="_blank" class="btn-primary">
-    Launch Interactive AI Demo →
-  </a>
+<!-- ===================== HERO ===================== -->
+<div class="hero">
+  <div class="bg-lines">
+    <svg viewBox="0 0 1200 800" preserveAspectRatio="none">
+      <defs>
+        <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+          <path d="M60 0L0 0 0 60" fill="none" stroke="#00e5ff" stroke-width="0.5"/>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#grid)"/>
+    </svg>
+  </div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-grid">
+    <div>
+      <div class="hero-badge">Enterprise AI Consulting</div>
+      <h1>AI That Transforms <em>Operations</em> Into Intelligence</h1>
+      <p class="hero-sub">VertexStat AI designs secure, governed agentic systems for healthcare, banking, and enterprise operations — delivering measurable ROI in 90 days.</p>
+      <div class="hero-actions">
+        <a href="#demos" class="btn-primary">View Live Demos</a>
+        <a href="#architecture" class="btn-outline">See Architecture</a>
+      </div>
+    </div>
+
+    <div class="hero-panel">
+      <div class="metrics-grid">
+        <div class="metric">
+          <div class="metric-val">70%<span> faster</span></div>
+          <div class="metric-label">Executive Reporting</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">5h<span>/wk</span></div>
+          <div class="metric-label">PMO Time Saved</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">18%<span> &darr;</span></div>
+          <div class="metric-label">Clinical Backlog</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">90<span>-day</span></div>
+          <div class="metric-label">Pilot to Production</div>
+        </div>
+      </div>
+      <div class="mini-chart">
+        <div class="mini-chart-label">AI Value Realized Over Time</div>
+        <div class="bars">
+          <div class="bar"><div class="bar-fill" style="height:20%"></div></div>
+          <div class="bar"><div class="bar-fill" style="height:35%"></div></div>
+          <div class="bar"><div class="bar-fill" style="height:50%"></div></div>
+          <div class="bar"><div class="bar-fill" style="height:62%"></div></div>
+          <div class="bar"><div class="bar-fill" style="height:74%"></div></div>
+          <div class="bar"><div class="bar-fill" style="height:85%"></div></div>
+          <div class="bar"><div class="bar-fill" style="height:95%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-        <div class="hero-stats">
-          <div class="hero-stat">
-            <div class="hero-stat-val">90</div>
-            <div class="hero-stat-label">Day AI pilot</div>
-          </div>
-          <div class="hero-stat">
-            <div class="hero-stat-val">70%</div>
-            <div class="hero-stat-label">Faster reporting</div>
-          </div>
-          <div class="hero-stat">
-            <div class="hero-stat-val">3</div>
-            <div class="hero-stat-label">Verticals served</div>
-          </div>
-        </div>
-      </div>
-      <div class="hero-visual">
-        <div class="hero-visual-top">
-          <span class="dot-red"></span><span class="dot-amber"></span><span class="dot-green"></span>
-          <span class="hero-visual-title">BankIQ Agent — terminal</span>
-        </div>
-        <div class="hero-terminal" id="terminal-output">
-          <div><span class="t-dim">$</span> <span class="t-green">bankiq</span> <span class="t-white">query</span></div>
-          <div><span class="t-dim">→ Connected to governed data layer</span></div>
-          <div><span class="t-dim">→ RBAC validated · Audit log active</span></div>
-          <div>&nbsp;</div>
-          <div><span class="t-amber">Query:</span> <span class="t-white">"Commercial loans maturing in 90d"</span></div>
-          <div><span class="t-dim">→ Routing to Banking Agent…</span></div>
-          <div><span class="t-dim">→ SQL Agent executing read-only view…</span></div>
-          <div>&nbsp;</div>
-          <div><span class="t-green">✓</span> <span class="t-white">42 loans · $18.7M exposure</span></div>
-          <div><span class="t-green">✓</span> <span class="t-white">7 flagged high-risk</span></div>
-          <div><span class="t-green">✓</span> <span class="t-white">Audit log written · Source cited</span></div>
-          <div>&nbsp;</div>
-          <div><span class="t-dim">Confidence: 94% · Sources: loans_mv, risk_flags</span></div>
-          <div>&nbsp;</div>
-          <div><span class="t-dim">$</span> <span class="t-cursor"></span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- ─── USE CASES ──────────────────────────────────────────── -->
-<section id="use-cases">
-  <div class="container">
-    <div class="fade-up">
-      <div class="section-label">What we solve</div>
-      <h2 class="section-heading">AI for your vertical</h2>
-      <p class="section-sub">Purpose-built agents for the domains where AI risk is highest and the operational opportunity is greatest.</p>
-    </div>
-    <div class="use-grid fade-up">
-      <div class="use-card">
-        <span class="use-tag tag-bank">Community Banking</span>
-        <h3>BankIQ Agent — Ask the Bank</h3>
-        <p>A secure agentic AI interface that allows bank employees to ask natural-language questions across lending, deposits, compliance, finance, and operations data.</p>
-        <ul class="use-bullets">
-          <li>Loan maturity and risk insights</li>
-          <li>Deposit outflow and retention analysis</li>
-          <li>Executive and board-ready reporting</li>
-          <li>FFIEC-informed compliance support</li>
+<!-- ===================== SERVICES ===================== -->
+<div class="section-full" id="services">
+  <div class="inner">
+    <div class="eyebrow">What We Do</div>
+    <h2>AI Services Built for <em>Enterprise Scale</em></h2>
+    <p class="section-desc">From strategy to deployment, we deliver practical, governed AI systems that integrate with your existing data and workflows.</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-icon">&#9672;</span>
+        <h3>AI Strategy &amp; Roadmap</h3>
+        <p>Executive-level AI assessments, use case prioritization, and 90-day pilot design tailored to your industry and risk tolerance.</p>
+        <ul class="usecase-list">
+          <li>AI maturity assessment</li>
+          <li>Use case prioritization workshop</li>
+          <li>Pilot roadmap &amp; business case</li>
         </ul>
       </div>
-      <div class="use-card">
-        <span class="use-tag tag-health">Healthcare</span>
-        <h3>Clinical Operations AI</h3>
-        <p>AI solutions for clinical operations, patient access, revenue cycle, workforce training, and operational automation — HIPAA-aligned by design.</p>
-        <ul class="use-bullets">
-          <li>Clinical workflow automation</li>
-          <li>Patient access optimisation</li>
-          <li>Staffing gap detection</li>
-          <li>Revenue cycle insights</li>
+      <div class="service-card">
+        <span class="service-icon">&#8635;</span>
+        <h3>Operations Automation</h3>
+        <p>End-to-end AI automation for incident management, reporting workflows, and operational intelligence — reducing manual effort by up to 70%.</p>
+        <ul class="usecase-list">
+          <li>Workflow automation design</li>
+          <li>Incident triage &amp; root cause AI</li>
+          <li>Operational dashboards</li>
         </ul>
       </div>
-      <div class="use-card">
-        <span class="use-tag tag-pmo">Program Management</span>
-        <h3>PMO Copilot</h3>
-        <p>Agentic AI for portfolio reporting, RAID tracking, executive status summaries, roadmap management, and delivery governance.</p>
-        <ul class="use-bullets">
-          <li>Automated status reporting</li>
-          <li>RAID and dependency tracking</li>
+      <div class="service-card">
+        <span class="service-icon">&#9678;</span>
+        <h3>PMO &amp; Executive Reporting AI</h3>
+        <p>Automated portfolio summaries, RAID tracking, delivery risk alerts, and board-ready insights generated on demand.</p>
+        <ul class="usecase-list">
+          <li>Automated status reports</li>
+          <li>RAID &amp; dependency tracking</li>
           <li>Portfolio health scoring</li>
-          <li>Delivery risk alerts</li>
         </ul>
       </div>
-      <div class="use-card">
-        <span class="use-tag tag-ops">Enterprise IT</span>
-        <h3>IT Operations AI</h3>
-        <p>AI-powered automation for incident management, root cause analysis, observability, ticket triage, and service reliability.</p>
-        <ul class="use-bullets">
-          <li>Incident triage automation</li>
-          <li>Root cause analysis</li>
-          <li>SRE support and escalation</li>
-          <li>Cost and performance insights</li>
+      <div class="service-card">
+        <span class="service-icon">&#11041;</span>
+        <h3>Agentic Workflow Design</h3>
+        <p>Multi-agent orchestration systems that route queries to specialized AI agents — banking, clinical, compliance, and IT operations.</p>
+        <ul class="usecase-list">
+          <li>Agent architecture design</li>
+          <li>Orchestrator development</li>
+          <li>Natural language interface</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">&#8776;</span>
+        <h3>Data &amp; Analytics Modernization</h3>
+        <p>Governed data layers, read-only analytical views, RBAC, and audit-ready infrastructure that powers secure AI access.</p>
+        <ul class="usecase-list">
+          <li>Data layer governance</li>
+          <li>Analytical view design</li>
+          <li>Audit log infrastructure</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <span class="service-icon">&#9633;</span>
+        <h3>AI Governance &amp; Risk Controls</h3>
+        <p>PII masking, confidence scoring, human-in-the-loop approval flows, and full audit traceability for regulated industries.</p>
+        <ul class="usecase-list">
+          <li>PII protection &amp; masking</li>
+          <li>Confidence scoring framework</li>
+          <li>Regulatory compliance review</li>
         </ul>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- ─── INTERACTIVE DEMO ───────────────────────────────────── -->
-<section id="demo">
-  <div class="container">
-    <div class="fade-up">
-      <div class="section-label">Live demo</div>
-      <h2 class="section-heading" style="color:#fff">Try BankIQ Agent</h2>
-      <p class="section-sub">Ask a question in natural language. BankIQ routes it to the right agent, queries governed data views, and returns an audited answer with source citations.</p>
-    </div>
-    <div class="demo-shell fade-up">
-      <div class="demo-sidebar">
-        <div class="demo-sidebar-logo">Bank<span>IQ</span> Agent</div>
-        <div class="sidebar-label">Example prompts</div>
-        <button class="prompt-btn active" onclick="loadPrompt(0)">Which commercial loans mature in the next 90 days?</button>
-        <button class="prompt-btn" onclick="loadPrompt(1)">Show deposit outflow risk by segment</button>
-        <button class="prompt-btn" onclick="loadPrompt(2)">Flag compliance items needing review</button>
-        <button class="prompt-btn" onclick="loadPrompt(3)">Executive summary for board meeting</button>
-        <div class="sidebar-divider"></div>
-        <div class="sidebar-label">Data sources</div>
-        <div style="font-family:var(--mono);font-size:10px;color:#4b5563;padding:0 12px;line-height:2.2">
-          Core banking ✓<br>Loan origination ✓<br>Compliance ledger ✓<br>Deposit analytics ✓
-        </div>
+    <!-- Industries -->
+    <div class="industries">
+      <div class="industry">
+        <div class="industry-label">Vertical</div>
+        <h4>Community Banking</h4>
       </div>
-      <div class="demo-main">
-        <div class="demo-topbar">
-          <div class="demo-topbar-title">BankIQ — Natural Language Banking Intelligence</div>
-          <div class="live-badge"><span class="live-dot"></span>Live demo</div>
-        </div>
-        <div class="chat-area" id="chat"></div>
-        <div class="chat-input-row">
-          <input class="chat-input" id="chat-inp" placeholder="Ask about loans, deposits, compliance…" onkeydown="if(event.key==='Enter')sendMsg()"/>
-          <button class="chat-send" onclick="sendMsg()">Send →</button>
-        </div>
-        <div class="demo-disclaimer">⚑ Demo uses synthetic data only. No real bank data is used or stored.</div>
+      <div class="industry">
+        <div class="industry-label">Vertical</div>
+        <h4>Healthcare Systems</h4>
+      </div>
+      <div class="industry">
+        <div class="industry-label">Vertical</div>
+        <h4>Enterprise PMO</h4>
+      </div>
+      <div class="industry">
+        <div class="industry-label">Vertical</div>
+        <h4>IT Operations</h4>
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- ─── ARCHITECTURE ───────────────────────────────────────── -->
-<section id="architecture">
-  <div class="container">
-    <div class="fade-up">
-      <div class="section-label">How it works</div>
-      <h2 class="section-heading">Agentic AI architecture</h2>
-      <p class="section-sub">Every query flows through a governed pipeline — intent classification, agent routing, read-only data access, and an audited response with source traceability.</p>
+<!-- ===================== DEMOS ===================== -->
+<section id="demos">
+  <div class="eyebrow">Agentic AI Demos</div>
+  <h2>See the Intelligence <em>In Action</em></h2>
+  <p class="section-desc">Real-world AI scenarios across banking, PMO, healthcare, and IT operations — powered by our governed agentic platform.</p>
+
+  <div class="demo-tabs">
+    <button class="demo-tab active" onclick="switchDemo(0)">BankIQ Agent</button>
+    <button class="demo-tab" onclick="switchDemo(1)">PMO Copilot</button>
+    <button class="demo-tab" onclick="switchDemo(2)">Clinical Ops AI</button>
+    <button class="demo-tab" onclick="switchDemo(3)">IT Ops AI</button>
+  </div>
+
+  <!-- BANKIQ -->
+  <div class="demo-panel active" id="demo-0">
+    <div>
+      <div class="demo-prompt-box">
+        <div class="demo-prompt-label">Natural Language Query</div>
+        <div class="demo-prompt">"Which commercial loans mature in the next 90 days and what is our total exposure?"</div>
+        <div class="demo-output">
+          <p>AI identified <strong>42 loans</strong> maturing within 90 days with <strong>$18.7M total exposure</strong>. Flagged 8 high-risk relationships with elevated credit scores and recommended proactive outreach to 12 renewal candidates.</p>
+        </div>
+        <div class="demo-kpis">
+          <div class="demo-kpi"><div class="demo-kpi-val">42</div><div class="demo-kpi-label">Loans Found</div></div>
+          <div class="demo-kpi"><div class="demo-kpi-val">$18.7M</div><div class="demo-kpi-label">Exposure</div></div>
+          <div class="demo-kpi"><div class="demo-kpi-val">8</div><div class="demo-kpi-label">High Risk</div></div>
+        </div>
+        <div class="demo-tags">
+          <span class="demo-tag">Lending AI</span>
+          <span class="demo-tag">Deposit Analytics</span>
+          <span class="demo-tag">Exec Reporting</span>
+          <span class="demo-tag">Compliance AI</span>
+        </div>
+      </div>
     </div>
-    <div class="arch-svg-wrap fade-up">
-      <svg width="100%" viewBox="0 0 1020 500" role="img" style="font-family:'DM Mono',monospace;min-width:620px">
-        <title>VertexStat AI agentic architecture</title>
-        <desc>Query flow from business user through NL interface, orchestrator, specialized agents, governed data layer, back to user as audited answer</desc>
-        <defs>
-          <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-            <path d="M2 1L8 5L2 9" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </marker>
-          <marker id="arr-green" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-            <path d="M2 1L8 5L2 9" fill="none" stroke="#1a9e6e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </marker>
-          <marker id="arr-purple" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-            <path d="M2 1L8 5L2 9" fill="none" stroke="#7c3aed" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </marker>
-          <marker id="arr-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-            <path d="M2 1L8 5L2 9" fill="none" stroke="#1a4fad" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </marker>
-        </defs>
-
-        <!-- Layer 0: Users -->
-        <rect x="40" y="20" width="880" height="58" rx="10" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
-        <text x="480" y="45" text-anchor="middle" font-size="13" font-weight="600" fill="#1e293b">Business users &amp; executives</text>
-        <text x="480" y="64" text-anchor="middle" font-size="11" fill="#64748b">Operations · Finance · Clinical · IT · Program management</text>
-
-        <!-- Arrow down -->
-        <line x1="480" y1="78" x2="480" y2="108" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#arr)"/>
-        <text x="496" y="96" font-size="10" fill="#9ca3af">query</text>
-
-        <!-- Layer 1: NL Interface -->
-        <rect x="240" y="110" width="480" height="54" rx="10" fill="#ecfdf5" stroke="#6ee7b7" stroke-width="1"/>
-        <text x="480" y="132" text-anchor="middle" font-size="13" font-weight="600" fill="#065f46">Natural language interface</text>
-        <text x="480" y="150" text-anchor="middle" font-size="11" fill="#059669">Chat · API · Embedded widget</text>
-
-        <!-- Arrow down -->
-        <line x1="480" y1="164" x2="480" y2="192" stroke="#1a9e6e" stroke-width="1.5" marker-end="url(#arr-green)"/>
-
-        <!-- Layer 2: Orchestrator -->
-        <rect x="180" y="194" width="600" height="54" rx="10" fill="#f5f3ff" stroke="#a78bfa" stroke-width="1"/>
-        <text x="480" y="216" text-anchor="middle" font-size="13" font-weight="600" fill="#4c1d95">AI planner / orchestrator</text>
-        <text x="480" y="234" text-anchor="middle" font-size="11" fill="#7c3aed">Intent classification · Agent routing · Response assembly</text>
-
-        <!-- Fan out arrows to agents -->
-        <line x1="130" y1="248" x2="130" y2="292" stroke="#7c3aed" stroke-width="1" marker-end="url(#arr-purple)"/>
-        <line x1="270" y1="248" x2="270" y2="292" stroke="#7c3aed" stroke-width="1" marker-end="url(#arr-purple)"/>
-        <line x1="410" y1="248" x2="410" y2="292" stroke="#7c3aed" stroke-width="1" marker-end="url(#arr-purple)"/>
-        <line x1="600" y1="248" x2="600" y2="292" stroke="#7c3aed" stroke-width="1" marker-end="url(#arr-purple)"/>
-        <line x1="780" y1="248" x2="780" y2="292" stroke="#7c3aed" stroke-width="1" marker-end="url(#arr-purple)"/>
-        <!-- connecting h-line -->
-        <line x1="130" y1="248" x2="780" y2="248" stroke="#7c3aed" stroke-width="1"/>
-
-        <!-- Layer 3: Agents -->
-        <!-- Banking -->
-        <rect x="50" y="294" width="158" height="62" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
-        <text x="129" y="317" text-anchor="middle" font-size="12" font-weight="600" fill="#1e40af">Banking agent</text>
-        <text x="129" y="333" text-anchor="middle" font-size="10" fill="#3b82f6">Loans · Deposits</text>
-        <text x="129" y="348" text-anchor="middle" font-size="10" fill="#3b82f6">Compliance</text>
-
-        <!-- PMO -->
-        <rect x="222" y="294" width="158" height="62" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
-        <text x="301" y="317" text-anchor="middle" font-size="12" font-weight="600" fill="#1e40af">PMO agent</text>
-        <text x="301" y="333" text-anchor="middle" font-size="10" fill="#3b82f6">RAID · Portfolio</text>
-        <text x="301" y="348" text-anchor="middle" font-size="10" fill="#3b82f6">Governance</text>
-
-        <!-- Clinical -->
-        <rect x="394" y="294" width="158" height="62" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
-        <text x="473" y="317" text-anchor="middle" font-size="12" font-weight="600" fill="#1e40af">Clinical agent</text>
-        <text x="473" y="333" text-anchor="middle" font-size="10" fill="#3b82f6">Access · Staffing</text>
-        <text x="473" y="348" text-anchor="middle" font-size="10" fill="#3b82f6">Revenue cycle</text>
-
-        <!-- IT Ops -->
-        <rect x="566" y="294" width="158" height="62" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
-        <text x="645" y="317" text-anchor="middle" font-size="12" font-weight="600" fill="#1e40af">IT Ops agent</text>
-        <text x="645" y="333" text-anchor="middle" font-size="10" fill="#3b82f6">Incidents · SRE</text>
-        <text x="645" y="348" text-anchor="middle" font-size="10" fill="#3b82f6">Observability</text>
-
-        <!-- SQL / Reporting -->
-        <rect x="710" y="294" width="158" height="62" rx="8" fill="#eff6ff" stroke="#93c5fd" stroke-width="1"/>
-        <text x="789" y="317" text-anchor="middle" font-size="12" font-weight="600" fill="#1e40af">SQL agent</text>
-        <text x="789" y="333" text-anchor="middle" font-size="10" fill="#3b82f6">Ad-hoc queries</text>
-        <text x="789" y="348" text-anchor="middle" font-size="10" fill="#3b82f6">Reports</text>
-
-        <!-- Fan-in arrows -->
-        <line x1="129" y1="356" x2="129" y2="398" stroke="#1a4fad" stroke-width="1" marker-end="url(#arr-blue)"/>
-        <line x1="301" y1="356" x2="301" y2="398" stroke="#1a4fad" stroke-width="1" marker-end="url(#arr-blue)"/>
-        <line x1="473" y1="356" x2="473" y2="398" stroke="#1a4fad" stroke-width="1" marker-end="url(#arr-blue)"/>
-        <line x1="645" y1="356" x2="645" y2="398" stroke="#1a4fad" stroke-width="1" marker-end="url(#arr-blue)"/>
-        <line x1="789" y1="356" x2="789" y2="398" stroke="#1a4fad" stroke-width="1" marker-end="url(#arr-blue)"/>
-
-        <!-- Layer 4: Governed Data -->
-        <rect x="40" y="400" width="880" height="58" rx="10" fill="#fffbeb" stroke="#fbbf24" stroke-width="1"/>
-        <text x="480" y="423" text-anchor="middle" font-size="13" font-weight="600" fill="#78350f">Governed data layer</text>
-        <text x="480" y="442" text-anchor="middle" font-size="11" fill="#b45309">RBAC · Read-only views · PII masking · Audit log · Confidence scoring · Source traceability</text>
-
-        <!-- Return arrow -->
-        <path d="M930 458 L950 458 L950 49 L922 49" fill="none" stroke="#1a9e6e" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arr-green)"/>
-        <text x="966" y="260" text-anchor="middle" font-size="10" fill="#1a9e6e" transform="rotate(90 966 260)">Answer + source + audit log</text>
-      </svg>
+    <div>
+      <div class="demo-visual-label">Risk Intelligence Scores</div>
+      <div class="gauge-row">
+        <div class="gauge-item"><span class="gauge-name">Loan Risk</span><div class="gauge-track"><div class="gauge-fill" style="width:82%"></div></div><span class="gauge-score">82</span></div>
+        <div class="gauge-item"><span class="gauge-name">Deposit Outflow</span><div class="gauge-track"><div class="gauge-fill" style="width:64%"></div></div><span class="gauge-score">64</span></div>
+        <div class="gauge-item"><span class="gauge-name">Cross-Sell Index</span><div class="gauge-track"><div class="gauge-fill" style="width:71%"></div></div><span class="gauge-score">71</span></div>
+        <div class="gauge-item"><span class="gauge-name">Compliance Alert</span><div class="gauge-track"><div class="gauge-fill" style="width:38%"></div></div><span class="gauge-score">38</span></div>
+        <div class="gauge-item"><span class="gauge-name">Board Readiness</span><div class="gauge-track"><div class="gauge-fill" style="width:91%"></div></div><span class="gauge-score">91</span></div>
+      </div>
     </div>
   </div>
-</section>
 
-<!-- ─── CASE STUDIES ───────────────────────────────────────── -->
-<section id="case-studies">
-  <div class="container">
-    <div class="fade-up">
-      <div class="section-label">Results</div>
-      <h2 class="section-heading">Pilot outcomes</h2>
-      <p class="section-sub">Measurable results from 90-day AI pilots with community banks, health systems, and enterprise operations teams.</p>
+  <!-- PMO -->
+  <div class="demo-panel" id="demo-1">
+    <div>
+      <div class="demo-prompt-box">
+        <div class="demo-prompt-label">Natural Language Query</div>
+        <div class="demo-prompt">"Generate executive portfolio summary with top risks and delayed milestones."</div>
+        <div class="demo-output">
+          <p>AI detected <strong>7 at-risk programs</strong> across the portfolio. Primary drivers: vendor delays (3), budget variance (2), and unresolved cross-project dependencies. Flagged 12 delayed milestones and 9 open decision items requiring executive action.</p>
+        </div>
+        <div class="demo-kpis">
+          <div class="demo-kpi"><div class="demo-kpi-val">7</div><div class="demo-kpi-label">At-Risk</div></div>
+          <div class="demo-kpi"><div class="demo-kpi-val">12</div><div class="demo-kpi-label">Delayed</div></div>
+          <div class="demo-kpi"><div class="demo-kpi-val">9</div><div class="demo-kpi-label">Open Decisions</div></div>
+        </div>
+        <div class="demo-tags">
+          <span class="demo-tag">RAID Intelligence</span>
+          <span class="demo-tag">Portfolio Health</span>
+          <span class="demo-tag">Governance AI</span>
+        </div>
+      </div>
     </div>
-    <div class="cases-grid fade-up">
-      <div class="case-card green">
-        <div class="case-metric">70%</div>
-        <div class="case-title">Banking Intelligence Pilot</div>
-        <p class="case-desc">Faster board and executive reporting through natural-language analytics across loans, deposits, compliance, and finance views at a $2.4B community bank.</p>
+    <div>
+      <div class="demo-visual-label">Portfolio Health Scores</div>
+      <div class="gauge-row">
+        <div class="gauge-item"><span class="gauge-name">Schedule Health</span><div class="gauge-track"><div class="gauge-fill" style="width:54%"></div></div><span class="gauge-score">54</span></div>
+        <div class="gauge-item"><span class="gauge-name">Budget Variance</span><div class="gauge-track"><div class="gauge-fill" style="width:67%"></div></div><span class="gauge-score">67</span></div>
+        <div class="gauge-item"><span class="gauge-name">Risk Resolution</span><div class="gauge-track"><div class="gauge-fill" style="width:41%"></div></div><span class="gauge-score">41</span></div>
+        <div class="gauge-item"><span class="gauge-name">Delivery Velocity</span><div class="gauge-track"><div class="gauge-fill" style="width:78%"></div></div><span class="gauge-score">78</span></div>
+        <div class="gauge-item"><span class="gauge-name">Stakeholder Sat.</span><div class="gauge-track"><div class="gauge-fill" style="width:85%"></div></div><span class="gauge-score">85</span></div>
       </div>
-      <div class="case-card blue">
-        <div class="case-metric">5 hrs</div>
-        <div class="case-title">PMO Reporting Automation</div>
-        <p class="case-desc">Saved weekly per programme manager through automated executive summaries, RAID review, portfolio health scoring, and dependency alerts across a 40-programme portfolio.</p>
+    </div>
+  </div>
+
+  <!-- CLINICAL -->
+  <div class="demo-panel" id="demo-2">
+    <div>
+      <div class="demo-prompt-box">
+        <div class="demo-prompt-label">Natural Language Query</div>
+        <div class="demo-prompt">"Show staffing gaps, appointment backlogs, and patient access bottlenecks across all clinics."</div>
+        <div class="demo-output">
+          <p>AI identified a <strong>cardiology backlog</strong> of 3.2 weeks and staffing shortages across 2 clinics. Authorization delays averaging 6.4 days detected. Recommended 3 workflow adjustments to recover 18% of delayed patient access capacity.</p>
+        </div>
+        <div class="demo-kpis">
+          <div class="demo-kpi"><div class="demo-kpi-val">3.2w</div><div class="demo-kpi-label">Backlog</div></div>
+          <div class="demo-kpi"><div class="demo-kpi-val">2</div><div class="demo-kpi-label">Clinics Flagged</div></div>
+          <div class="demo-kpi"><div class="demo-kpi-val">18%</div><div class="demo-kpi-label">Recovery</div></div>
+        </div>
+        <div class="demo-tags">
+          <span class="demo-tag">Patient Access</span>
+          <span class="demo-tag">Staffing AI</span>
+          <span class="demo-tag">Revenue Cycle</span>
+        </div>
       </div>
-      <div class="case-card amber">
-        <div class="case-metric">18%</div>
-        <div class="case-title">Clinical Operations Optimisation</div>
-        <p class="case-desc">Reduction in patient access backlog through AI-driven bottleneck detection, staffing visibility, and authorisation delay tracking across a 3-hospital regional system.</p>
+    </div>
+    <div>
+      <div class="demo-visual-label">Clinical Operations Scores</div>
+      <div class="gauge-row">
+        <div class="gauge-item"><span class="gauge-name">Access Delay</span><div class="gauge-track"><div class="gauge-fill" style="width:76%"></div></div><span class="gauge-score">76</span></div>
+        <div class="gauge-item"><span class="gauge-name">Staffing Gap</span><div class="gauge-track"><div class="gauge-fill" style="width:58%"></div></div><span class="gauge-score">58</span></div>
+        <div class="gauge-item"><span class="gauge-name">Auth Delay</span><div class="gauge-track"><div class="gauge-fill" style="width:64%"></div></div><span class="gauge-score">64</span></div>
+        <div class="gauge-item"><span class="gauge-name">Care Coordination</span><div class="gauge-track"><div class="gauge-fill" style="width:72%"></div></div><span class="gauge-score">72</span></div>
+        <div class="gauge-item"><span class="gauge-name">Revenue Leakage</span><div class="gauge-track"><div class="gauge-fill" style="width:49%"></div></div><span class="gauge-score">49</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- IT OPS -->
+  <div class="demo-panel" id="demo-3">
+    <div>
+      <div class="demo-prompt-box">
+        <div class="demo-prompt-label">Natural Language Query</div>
+        <div class="demo-prompt">"Identify active production incidents, root causes, and SLA breach risk in the last 24 hours."</div>
+        <div class="demo-output">
+          <p>AI detected an <strong>API latency spike</strong> traced to Kubernetes node saturation and delayed autoscaling response. Correlated 3 related alerts, estimated 22-minute MTTR, and recommended node group expansion to prevent SLA breach.</p>
+        </div>
+        <div class="demo-kpis">
+          <div class="demo-kpi"><div class="demo-kpi-val">3</div><div class="demo-kpi-label">Incidents</div></div>
+          <div class="demo-kpi"><div class="demo-kpi-val">22m</div><div class="demo-kpi-label">Est. MTTR</div></div>
+          <div class="demo-kpi"><div class="demo-kpi-val">HIGH</div><div class="demo-kpi-label">SLA Risk</div></div>
+        </div>
+        <div class="demo-tags">
+          <span class="demo-tag">Incident AI</span>
+          <span class="demo-tag">Root Cause</span>
+          <span class="demo-tag">SRE Automation</span>
+          <span class="demo-tag">Observability</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="demo-visual-label">System Health Scores</div>
+      <div class="gauge-row">
+        <div class="gauge-item"><span class="gauge-name">API Latency</span><div class="gauge-track"><div class="gauge-fill" style="width:91%"></div></div><span class="gauge-score">91</span></div>
+        <div class="gauge-item"><span class="gauge-name">Node Saturation</span><div class="gauge-track"><div class="gauge-fill" style="width:73%"></div></div><span class="gauge-score">73</span></div>
+        <div class="gauge-item"><span class="gauge-name">SLA Risk</span><div class="gauge-track"><div class="gauge-fill" style="width:68%"></div></div><span class="gauge-score">68</span></div>
+        <div class="gauge-item"><span class="gauge-name">Ticket Backlog</span><div class="gauge-track"><div class="gauge-fill" style="width:55%"></div></div><span class="gauge-score">55</span></div>
+        <div class="gauge-item"><span class="gauge-name">Cost Anomaly</span><div class="gauge-track"><div class="gauge-fill" style="width:42%"></div></div><span class="gauge-score">42</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── GOVERNANCE ─────────────────────────────────────────── -->
-<section id="governance">
-  <div class="container">
-    <div class="fade-up">
-      <div class="section-label">AI governance</div>
-      <h2 class="section-heading" style="color:#fff">Compliance built in, not bolted on</h2>
-      <p class="section-sub">Every VertexStat AI deployment includes enterprise governance controls aligned to HIPAA, FFIEC, SOC 2, and your internal risk frameworks.</p>
+<!-- ===================== ARCHITECTURE ===================== -->
+<div class="section-full" id="architecture">
+  <div class="inner">
+    <div class="eyebrow">How It Works</div>
+    <h2>Governed <em>Agentic Architecture</em></h2>
+    <p class="section-desc">A layered AI system that routes natural-language queries through specialized agents to your approved data sources — with full audit trails at every step.</p>
+    <div class="arch-flow">
+      <div class="arch-node user">
+        <h4>Business User / Executive / Operations Team</h4>
+        <p>Asks questions in plain language — no SQL, no dashboards required</p>
+      </div>
+      <div class="arch-arrow">&darr;</div>
+      <div class="arch-node highlight">
+        <h4>Natural Language Interface</h4>
+        <p>Secure chat UI with role-based access and session audit logging</p>
+      </div>
+      <div class="arch-arrow">&darr;</div>
+      <div class="arch-node">
+        <h4>AI Planner / Orchestrator</h4>
+        <p>Decomposes intent, selects agents, sequences calls, synthesizes final response</p>
+      </div>
+      <div class="arch-arrow">&darr;</div>
+      <div class="arch-agents">
+        <div class="arch-agent">Banking Agent</div>
+        <div class="arch-agent">PMO Agent</div>
+        <div class="arch-agent">Clinical Agent</div>
+        <div class="arch-agent">IT Ops Agent</div>
+        <div class="arch-agent">SQL Agent</div>
+        <div class="arch-agent">Reporting Agent</div>
+      </div>
+      <div class="arch-arrow">&darr;</div>
+      <div class="arch-node">
+        <h4>Governed Data Layer</h4>
+        <p>Read-only approved views &middot; RBAC &middot; PII masking &middot; Full audit log</p>
+      </div>
+      <div class="arch-arrow">&darr;</div>
+      <div class="arch-node success">
+        <h4>Answer + Source + Confidence + Audit Trail</h4>
+        <p>Every response is traceable, explainable, and governance-compliant</p>
+      </div>
     </div>
-    <div class="gov-grid fade-up">
-      <div class="gov-card">
-        <div class="gov-icon">🔐</div>
-        <div class="gov-title">Role-based access control</div>
-        <div class="gov-desc">Every user sees only the data their role permits. No broad data access, ever.</div>
-      </div>
-      <div class="gov-card">
-        <div class="gov-icon">👁</div>
-        <div class="gov-title">Read-only data views</div>
-        <div class="gov-desc">AI agents query approved read-only views. No writes, no mutations, no bulk exports.</div>
-      </div>
-      <div class="gov-card">
-        <div class="gov-icon">📋</div>
-        <div class="gov-title">Full audit logging</div>
-        <div class="gov-desc">Every query, agent action, and response is logged with user, timestamp, and data source.</div>
-      </div>
-      <div class="gov-card">
-        <div class="gov-icon">🛡</div>
-        <div class="gov-title">PII protection &amp; masking</div>
-        <div class="gov-desc">Sensitive identifiers are masked at the data layer before AI processing. HIPAA-aligned.</div>
-      </div>
-      <div class="gov-card">
-        <div class="gov-icon">✋</div>
-        <div class="gov-title">Human approval workflows</div>
-        <div class="gov-desc">High-risk actions require explicit human confirmation before execution.</div>
-      </div>
-      <div class="gov-card">
-        <div class="gov-icon">📊</div>
-        <div class="gov-title">Confidence scoring</div>
-        <div class="gov-desc">Every AI answer includes a confidence score and source citation so users know when to verify.</div>
-      </div>
+  </div>
+</div>
+
+<!-- ===================== CASE STUDIES ===================== -->
+<section id="results">
+  <div class="eyebrow">Case Studies</div>
+  <h2>Proven <em>Business Outcomes</em></h2>
+  <p class="section-desc">Real results from pilot engagements across banking, healthcare, and enterprise operations.</p>
+  <div class="cases-grid">
+    <div class="case-card">
+      <div class="case-number">01</div>
+      <div class="case-stat">70%</div>
+      <h3>Faster Executive Reporting</h3>
+      <p>Community bank deployed BankIQ Agent across lending, deposits, and compliance. Weekly reporting time dropped from 7 hours to under 2 hours with full audit traceability.</p>
+    </div>
+    <div class="case-card">
+      <div class="case-number">02</div>
+      <div class="case-stat">5h/wk</div>
+      <h3>PMO Automation Savings</h3>
+      <p>Mid-size healthcare PMO automated status reports, RAID reviews, and portfolio health scoring — freeing program managers for strategic decision-making.</p>
+    </div>
+    <div class="case-card">
+      <div class="case-number">03</div>
+      <div class="case-stat">18%</div>
+      <h3>Clinical Backlog Reduction</h3>
+      <p>Clinical Ops AI surfaced appointment bottlenecks and staffing gaps across 6 clinics, enabling proactive scheduling adjustments and faster patient access.</p>
     </div>
   </div>
 </section>
 
-<!-- ─── TEAM ───────────────────────────────────────────────── -->
-<section id="team">
-  <div class="container">
-    <div class="fade-up">
-      <div class="section-label">The team</div>
-      <h2 class="section-heading">Built by practitioners,<br>not theorists</h2>
-      <p class="section-sub">VertexStat AI is led by enterprise delivery practitioners with support from specialized AI and industry advisory networks across banking, healthcare, PMO, and IT operations.</p>
-    </div>
-    <div class="team-grid fade-up">
-      <div class="team-card">
-        <div class="avatar av-green">SB</div>
-        <div class="member-name">Sunil Bhardwaj</div>
-        <div class="member-role">Founder &amp; AI Program Delivery Lead</div>
-        <div class="member-bio">Enterprise technology and program management leader with experience across healthcare, banking, PMO transformation, AI delivery, cloud modernization, and enterprise operations.</div>
-        <div class="tags"><span class="tag">AI Transformation</span><span class="tag">Program Delivery</span><span class="tag">Banking</span></div>
-        <a class="li-btn" href="https://www.linkedin.com" target="_blank" rel="noopener">↗ LinkedIn</a>
+<!-- ===================== GOVERNANCE ===================== -->
+<div class="section-full">
+  <div class="inner">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start" class="gov-inner">
+      <div>
+        <div class="eyebrow">AI Governance</div>
+        <h2>Built for <em>Regulated Industries</em></h2>
+        <p style="color:var(--muted);line-height:1.7;font-size:0.95rem">Every VertexStat AI deployment ships with enterprise-grade governance controls — not bolted on as an afterthought, but designed into the architecture from day one. We meet healthcare, banking, and enterprise compliance requirements out of the box.</p>
       </div>
-      <div class="team-card">
-        <div class="avatar av-blue">A1</div>
-        <div class="member-name">AI Advisory Network</div>
-        <div class="member-role">Enterprise AI Architecture</div>
-        <div class="member-bio">Specialized advisory support across AI architecture, governance, MLOps, enterprise automation, observability, and regulated-industry AI strategy.</div>
-        <div class="tags"><span class="tag">LLM</span><span class="tag">MLOps</span><span class="tag">Architecture</span></div>
-        <a class="li-btn" href="#contact">Enterprise Advisory</a>
+      <div class="gov-grid">
+        <div class="gov-item"><span class="gov-check">&#10003;</span><p>Role-based access control (RBAC)</p></div>
+        <div class="gov-item"><span class="gov-check">&#10003;</span><p>Read-only governed data views</p></div>
+        <div class="gov-item"><span class="gov-check">&#10003;</span><p>Full audit logs &amp; source traceability</p></div>
+        <div class="gov-item"><span class="gov-check">&#10003;</span><p>PII protection and data masking</p></div>
+        <div class="gov-item"><span class="gov-check">&#10003;</span><p>Human approval for high-risk actions</p></div>
+        <div class="gov-item"><span class="gov-check">&#10003;</span><p>Confidence scoring &amp; explainability</p></div>
       </div>
-      <div class="team-card">
-        <div class="avatar av-amber">A2</div>
-        <div class="member-name">Industry Specialist Network</div>
-        <div class="member-role">Healthcare · Banking · PMO</div>
-        <div class="member-bio">Cross-functional delivery specialists supporting AI adoption, operational transformation, governance, compliance alignment, and enterprise execution.</div>
-        <div class="tags"><span class="tag">Healthcare</span><span class="tag">Compliance</span><span class="tag">Operations</span></div>
-        <a class="li-btn" href="#contact">Delivery Network</a>
-      </div>
-    </div>
-    <div class="advisors-bar fade-up">
-      <div class="adv-title">Advisory support model</div>
-      <div class="adv-row">
-        <div class="adv-item">
-          <div class="adv-avatar" style="background:#f3e8ff;color:#6b21a8">AI</div>
-          <div>
-            <div class="adv-name">AI Architecture Review</div>
-            <div class="adv-desc">LLM design · RAG · Agentic workflows · MLOps</div>
-          </div>
-        </div>
-        <div class="adv-item">
-          <div class="adv-avatar" style="background:#ecfdf5;color:#065f46">GRC</div>
-          <div>
-            <div class="adv-name">Governance &amp; Risk Review</div>
-            <div class="adv-desc">HIPAA · FFIEC-informed controls · Audit readiness</div>
-          </div>
-        </div>
-        <div class="adv-item">
-          <div class="adv-avatar" style="background:#eff6ff;color:#1e40af">OPS</div>
-          <div>
-            <div class="adv-name">Operational Delivery Support</div>
-            <div class="adv-desc">PMO · Banking operations · Healthcare workflows</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="hiring-bar fade-up">
-      <div class="hiring-text"><strong>Partner with VertexStat AI</strong>We collaborate with AI engineers, healthcare SMEs, banking operations specialists, and PMO transformation advisors.</div>
-      <a class="hiring-cta" href="#contact" style="text-decoration:none">Contact us →</a>
     </div>
   </div>
-</section>
+</div>
 
-<!-- ─── CTA / CONTACT ──────────────────────────────────────── -->
-<section id="contact">
-  <div class="container">
-    <div class="fade-up">
-      <div class="section-label">Get started</div>
-      <h2 class="section-heading">Ready to explore AI<br>for your organization?</h2>
-      <p class="section-sub" style="margin-bottom:32px">Start with a practical AI assessment, roadmap, and 90-day pilot designed for measurable business value in regulated industries.</p>
-    </div>
-    <div class="cta-outer fade-up">
-      <div class="cta-top">
-        <div class="cta-eyebrow">Choose your starting point</div>
-        <div class="cta-heading">Three ways to begin</div>
-        <div class="cta-sub">Every engagement starts with an honest conversation about your AI readiness — not a sales pitch.</div>
-      </div>
-      <div class="cta-options">
-        <div class="cta-opt selected" onclick="selectOpt(0)">
-          <div class="opt-icon">📋</div>
-          <div class="opt-title">Executive AI session</div>
-          <div class="opt-desc">60-min strategy call. Honest assessment of your AI readiness and where to start.</div>
-        </div>
-        <div class="cta-opt" onclick="selectOpt(1)">
-          <div class="opt-icon">🚀</div>
-          <div class="opt-title">90-day AI pilot</div>
-          <div class="opt-desc">Scoped proof-of-concept in your environment. One use case, full governance stack.</div>
-        </div>
-        <div class="cta-opt" onclick="selectOpt(2)">
-          <div class="opt-icon">📄</div>
-          <div class="opt-title">Download executive brief</div>
-          <div class="opt-desc">8-page PDF: architecture, case studies, governance model, and pilot approach.</div>
-        </div>
-      </div>
-      <div class="form-panel">
-        <div class="form-grid" id="form-fields">
-          <div class="form-field">
-            <label>First name</label>
-            <input type="text" placeholder="Jane"/>
-          </div>
-          <div class="form-field">
-            <label>Last name</label>
-            <input type="text" placeholder="Smith"/>
-          </div>
-          <div class="form-field">
-            <label>Work email</label>
-            <input type="email" placeholder="jane@yourbank.com"/>
-          </div>
-          <div class="form-field">
-            <label>Organization</label>
-            <input type="text" placeholder="First National Bank"/>
-          </div>
-          <div class="form-field">
-            <label>Industry</label>
-            <select>
-              <option value="">Select industry…</option>
-              <option>Community banking</option>
-              <option>Regional / commercial banking</option>
-              <option>Healthcare / hospital system</option>
-              <option>Enterprise IT / operations</option>
-              <option>Program / portfolio management</option>
-              <option>Other regulated industry</option>
-            </select>
-          </div>
-          <div class="form-field">
-            <label>Organization size</label>
-            <select>
-              <option value="">Select size…</option>
-              <option>&lt; 250 employees</option>
-              <option>250 – 1,000</option>
-              <option>1,000 – 5,000</option>
-              <option>5,000+</option>
-            </select>
-          </div>
-          <div class="form-field full">
-            <label>What's your primary AI challenge? (optional)</label>
-            <textarea placeholder="e.g. We manually produce 40-page board reports every quarter and want to automate them while maintaining audit trails…"></textarea>
-          </div>
-        </div>
-        <div class="submit-row">
-          <div class="submit-note">We respond within 1 business day.<br>No spam, no unsolicited follow-ups.</div>
-          <button class="submit-btn" id="submit-btn" onclick="handleSubmit()">Request executive session →</button>
-        </div>
-        <div class="success-msg" id="success-msg">✓ Request received — we'll be in touch within 1 business day. Check your inbox for a confirmation.</div>
-      </div>
-    </div>
-    <div class="alt-ctas fade-up" style="margin-top:16px">
-      <a class="alt-card" href="/live-ai-demo.html" target="_blank" style="text-decoration:none">
-  <div class="alt-icon alt-icon-g">🤖</div>
-  <div>
-    <div class="alt-text-title">Launch Interactive AI Demo</div>
-    <div class="alt-text-desc">
-      Explore LoanIQ-style banking AI, Clinical Operations AI, PMO Copilot, and IT Operations dashboards.
-    </div>
+<!-- ===================== CTA ===================== -->
+<div class="cta-section" id="contact">
+  <div class="eyebrow" style="text-align:center">Start Your AI Journey</div>
+  <h2>Ready to Explore AI for <em>Your Organization?</em></h2>
+  <p>Begin with a practical AI assessment, 90-day pilot roadmap, and a use case designed for measurable business value — delivered in weeks, not months.</p>
+  <div class="cta-actions">
+    <a href="mailto:info@vertexstat.ai" class="btn-primary">Schedule Executive AI Session</a>
+    <a href="https://vertexstat-ai-enterprise-xr2u.vercel.app/executive-ai-brief.txt" class="btn-outline">Download Executive Brief</a>
   </div>
-</a>
-<a class="alt-card" href="https://calendly.com/sbhar66/30min" target="_blank" style="text-decoration:none">
-  <div class="alt-icon alt-icon-g">📅</div>
-  <div>
-    <div class="alt-text-title">Schedule directly</div>
-    <div class="alt-text-desc">Pick a 30 or 60-min slot on our calendar — no form required. Available Mon–Fri.</div>
-  </div>
-</a>
-<a class="alt-card" href="/executive-brief.pdf" target="_blank" style="text-decoration:none">
-  <div class="alt-icon alt-icon-b">📥</div>
-  <div>
-    <div class="alt-text-title">Download executive brief</div>
-    <div class="alt-text-desc">
-      PDF overview of our architecture, case study results, and governance model. 8 pages.
-    </div>
-  </div>
-</a>
-<a class="alt-card" href="/live-ai-demo.html" target="_blank" style="text-decoration:none">
-  <div class="alt-icon alt-icon-g">🤖</div>
-  <div>
-    <div class="alt-text-title">Launch Interactive AI Demo</div>
-    <div class="alt-text-desc">
-      Try live Clinical Operations AI, PMO Copilot, and IT Operations AI workflows.
-    </div>
-  </div>
-</a>
-    </div>
-  </div>
-</section>
+</div>
 
-<!-- ─── FOOTER ─────────────────────────────────────────────── -->
-<footer>
-  <div class="container">
-    <div class="footer-inner">
-      <div class="footer-logo">Vertex<span>Stat</span> AI</div>
-      <div class="footer-links">
-        <a href="#demo">Demo</a>
-        <a href="#architecture">Architecture</a>
-        <a href="#case-studies">Results</a>
-        <a href="#team">Team</a>
-        <a href="mailto:info@vertexstat.ai">info@vertexstat.ai</a>
-      </div>
-      <div class="footer-copy">© 2026 VertexStat AI. All rights reserved.</div>
-    </div>
-  </div>
-</footer>
+<!-- ===================== FOOTER ===================== -->
+<div class="footer-wrap">
+  <footer>
+    <div class="footer-brand">Vertex<span>Stat</span> AI</div>
+    <p>Agentic AI consulting for healthcare, banking &amp; enterprise operations</p>
+    <p>info@vertexstat.ai</p>
+  </footer>
+</div>
 
-<!-- ─── SCRIPTS ────────────────────────────────────────────── -->
 <script>
-/* ── Demo responses ── */
-const RESPONSES = [
-  {
-    user:"Which commercial loans mature in the next 90 days?",
-    render:()=>`
-      <div style="margin-bottom:8px">BankIQ identified <strong>42 commercial loans</strong> maturing within 90 days — <strong>$18.7M total exposure</strong>. 7 flagged high-risk.</div>
-      <div class="stats-row">
-        <div class="stat-chip"><div class="stat-chip-label">Total loans</div><div class="stat-chip-val">42</div></div>
-        <div class="stat-chip"><div class="stat-chip-label">Exposure</div><div class="stat-chip-val warn">$18.7M</div></div>
-        <div class="stat-chip"><div class="stat-chip-label">High risk</div><div class="stat-chip-val warn">7</div></div>
-        <div class="stat-chip"><div class="stat-chip-label">Renewed</div><div class="stat-chip-val good">28</div></div>
-      </div>
-      <table class="table-mini">
-        <thead><tr><th>Borrower</th><th>Amount</th><th>Maturity</th><th>Risk</th></tr></thead>
-        <tbody>
-          <tr><td>Meridian Logistics LLC</td><td>$2.1M</td><td>Jun 14</td><td><span class="badge badge-red">High</span></td></tr>
-          <tr><td>Southgate Realty Group</td><td>$3.4M</td><td>Jun 22</td><td><span class="badge badge-amber">Watch</span></td></tr>
-          <tr><td>Harmon Manufacturing</td><td>$890K</td><td>Jul 1</td><td><span class="badge badge-green">Current</span></td></tr>
-          <tr><td>Pinecrest Hotel Partners</td><td>$4.2M</td><td>Jul 8</td><td><span class="badge badge-red">High</span></td></tr>
-        </tbody>
-      </table>
-      <div style="font-size:10px;font-family:var(--mono);color:#4b5563;margin-top:8px">Source: loans_mv · Confidence: 94% · Audit log #8821</div>`
-  },
-  {
-    user:"Show deposit outflow risk by segment",
-    render:()=>`
-      <div style="margin-bottom:8px">Deposit analysis across 4 customer segments. Elevated outflow risk in commercial DDA and CD maturity clusters.</div>
-      <div class="risk-bar-wrap">
-        <div class="risk-row"><span class="risk-name">Commercial DDA</span><div class="risk-track"><div class="risk-fill" style="width:82%;background:#c2410c"></div></div><span class="risk-score">82</span></div>
-        <div class="risk-row"><span class="risk-name">CD Maturities</span><div class="risk-track"><div class="risk-fill" style="width:67%;background:#d97706"></div></div><span class="risk-score">67</span></div>
-        <div class="risk-row"><span class="risk-name">Consumer Savings</span><div class="risk-track"><div class="risk-fill" style="width:34%;background:#1a9e6e"></div></div><span class="risk-score">34</span></div>
-        <div class="risk-row"><span class="risk-name">Business Checking</span><div class="risk-track"><div class="risk-fill" style="width:41%;background:#0f7a55"></div></div><span class="risk-score">41</span></div>
-      </div>
-      <div class="alert-box-dark">⚠ $6.2M in CDs maturing in next 30 days show no renewal intent signals. Recommend outreach campaign for top 18 accounts.</div>
-      <div style="font-size:10px;font-family:var(--mono);color:#4b5563;margin-top:8px">Source: deposit_analytics_mv · Confidence: 91% · Audit log #8822</div>`
-  },
-  {
-    user:"Flag compliance items needing review",
-    render:()=>`
-      <div style="margin-bottom:8px">Compliance scan complete. <strong>3 items</strong> require immediate attention, <strong>9 items</strong> due within 30 days.</div>
-      <table class="table-mini">
-        <thead><tr><th>Item</th><th>Category</th><th>Due</th><th>Status</th></tr></thead>
-        <tbody>
-          <tr><td>BSA/AML Annual Refresh</td><td>Regulatory</td><td>Overdue</td><td><span class="badge badge-red">Urgent</span></td></tr>
-          <tr><td>HMDA Reportable Loans</td><td>Fair lending</td><td>Jun 30</td><td><span class="badge badge-amber">Review</span></td></tr>
-          <tr><td>CRA Assessment Area</td><td>CRA</td><td>Jul 15</td><td><span class="badge badge-amber">Review</span></td></tr>
-          <tr><td>Flood Insurance Escrow</td><td>Escrow</td><td>Jul 20</td><td><span class="badge badge-green">On track</span></td></tr>
-        </tbody>
-      </table>
-      <div class="alert-box-dark">⚑ BSA/AML refresh is 12 days overdue. Source: compliance_calendar · Last audit: 2025-03-14.</div>
-      <div style="font-size:10px;font-family:var(--mono);color:#4b5563;margin-top:8px">Source: compliance_ledger_mv · Confidence: 97% · Audit log #8823</div>`
-  },
-  {
-    user:"Executive summary for board meeting",
-    render:()=>`
-      <div style="margin-bottom:8px"><strong>Board Summary — Q2 2026.</strong> Portfolio performing within risk appetite. Three items flagged for board attention.</div>
-      <div class="stats-row">
-        <div class="stat-chip"><div class="stat-chip-label">Net interest margin</div><div class="stat-chip-val good">3.42%</div></div>
-        <div class="stat-chip"><div class="stat-chip-label">NPL ratio</div><div class="stat-chip-val warn">1.8%</div></div>
-        <div class="stat-chip"><div class="stat-chip-label">Liquidity ratio</div><div class="stat-chip-val good">18.4%</div></div>
-      </div>
-      <div class="alert-box-dark">📋 Key items: (1) CRE concentration approaching 280% of capital — monitor; (2) CD repricing headwind Q3 ~$8M; (3) BSA/AML refresh requires board acknowledgment.</div>
-      <div style="font-size:10px;font-family:var(--mono);color:#4b5563;margin-top:8px">Source: exec_summary_mv · Confidence: 92% · Audit log #8824</div>`
+  function switchDemo(idx) {
+    document.querySelectorAll('.demo-tab').forEach(function(t, i) {
+      t.classList.toggle('active', i === idx);
+    });
+    document.querySelectorAll('.demo-panel').forEach(function(p, i) {
+      p.classList.toggle('active', i === idx);
+    });
   }
-];
-
-let isTyping = false;
-
-function renderUser(text) {
-  const chat = document.getElementById('chat');
-  const el = document.createElement('div');
-  el.className = 'msg msg-user';
-  el.innerHTML = `<div class="user-label">You</div><div class="bubble bubble-user">${text}</div>`;
-  chat.appendChild(el);
-  chat.scrollTop = chat.scrollHeight;
-}
-
-function renderAI(html) {
-  const chat = document.getElementById('chat');
-  const el = document.createElement('div');
-  el.className = 'msg msg-ai';
-  el.innerHTML = `<div class="ai-label">BankIQ Agent</div><div class="bubble bubble-ai">${html}</div>`;
-  chat.appendChild(el);
-  chat.scrollTop = chat.scrollHeight;
-}
-
-function showTyping() {
-  const chat = document.getElementById('chat');
-  const el = document.createElement('div');
-  el.id = 'typing-ind';
-  el.className = 'msg msg-ai';
-  el.innerHTML = `<div class="ai-label">BankIQ Agent</div><div class="bubble bubble-ai"><div class="typing"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div></div>`;
-  chat.appendChild(el);
-  chat.scrollTop = chat.scrollHeight;
-}
-
-function hideTyping() {
-  const el = document.getElementById('typing-ind');
-  if (el) el.remove();
-}
-
-function loadPrompt(idx) {
-  document.querySelectorAll('.prompt-btn').forEach((b,i) => b.classList.toggle('active', i===idx));
-  document.getElementById('chat-inp').value = RESPONSES[idx].user;
-}
-
-function sendMsg() {
-  if (isTyping) return;
-  const inp = document.getElementById('chat-inp');
-  const text = inp.value.trim();
-  if (!text) return;
-  inp.value = '';
-  renderUser(text);
-  isTyping = true;
-  showTyping();
-  const match = RESPONSES.find(r => r.user.toLowerCase() === text.toLowerCase()) || RESPONSES[0];
-  setTimeout(() => {
-    hideTyping();
-    renderAI(match.render());
-    isTyping = false;
-  }, 1500);
-}
-
-/* ── CTA form ── */
-function selectOpt(i) {
-  document.querySelectorAll('.cta-opt').forEach((el,j) => el.classList.toggle('selected', i===j));
-  const labels = ['Request executive session →','Request pilot scoping →','Send me the brief →'];
-  document.getElementById('submit-btn').textContent = labels[i];
-}
-
-function handleSubmit() {
-  document.getElementById('success-msg').style.display = 'block';
-  document.getElementById('form-fields').style.opacity = '0.4';
-  document.getElementById('form-fields').style.pointerEvents = 'none';
-  document.querySelector('.submit-row').style.display = 'none';
-}
-
-/* ── Scroll fade-in ── */
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.08 });
-document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-/* ── Init demo ── */
-loadPrompt(0);
 </script>
 </body>
 </html>
